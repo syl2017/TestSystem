@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/thing_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="96.0dip"
+        android:layout_marginLeft="8.0dip"
+        android:layout_marginRight="8.0dip"
+        android:layout_marginBottom="8.0dip"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        card_view:cardCornerRadius="2.0dip">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/thing_desc_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/count_time_layout"
+                android:orientation="vertical"
+                android:padding="16.0dip">
+
+                <TextView
+                    android:id="@+id/thing_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="***"
+                    android:textColor="@color/material_title_light"
+                    android:textSize="14.0dip" />
+
+                <TextView
+                    android:id="@+id/thing_nextRemindTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="**** **** ****"
+                    android:textColor="@color/material_caption_light"
+                    android:textSize="14.0dip" />
+
+                <TextView
+                    android:id="@+id/thing_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/material_caption_light"
+                    android:textSize="14.0dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/count_time_layout"
+                android:layout_width="116.0dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8.0dip">
+
+                <TextView
+                    android:id="@+id/count_type_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="剩余"
+                    android:textColor="@android:color/black"
+                    android:textSize="12.0dip" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/count_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="99999"
+                        android:textColor="@android:color/black"
+                        android:textSize="24.0dip" />
+
+                    <TextView
+                        android:id="@+id/count_time_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/count_time"
+                        android:layout_toRightOf="@id/count_time"
+                        android:text="天"
+                        android:textColor="@android:color/black"
+                        android:textSize="12.0dip" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
