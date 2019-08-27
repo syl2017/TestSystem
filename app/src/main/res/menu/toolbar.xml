@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
     android:id="@+id/title_setting"
-    android:icon="@drawable/ic_settings_black_36dp"
+    android:icon="@drawable/ic_more_vert_black_24dp"
     android:title="Settings"
     app:showAsAction="never">
 </item>
