@@ -1,20 +1,21 @@
 package com.example.testsystem;
 
-import android.content.Intent;
+
+
+
+
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.testsystem.ui.CountPlan;
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         }
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
-//        navView.setCheckedItem(R.id.nav_call);
+        navView.setCheckedItem(R.id.nav_call);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
