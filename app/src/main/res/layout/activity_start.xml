@@ -2,7 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_splash"
+    android:background="@drawable/ic_splashnew"
 
-    />
+    >
+
+    <TextView
+        android:id="@+id/run_out"
+        android:layout_width="89dp"
+        android:layout_height="31dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+         />
+</RelativeLayout>
 
