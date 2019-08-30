@@ -33,6 +33,15 @@
             android:layout_marginTop="10dp"
             tools:ignore="UnknownId"></android.support.v7.widget.RecyclerView>
 
+        <Button
+            android:id="@+id/start_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycle_view"
+            android:layout_centerHorizontal="true"
+            android:text="开始考试"></Button>
+        
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

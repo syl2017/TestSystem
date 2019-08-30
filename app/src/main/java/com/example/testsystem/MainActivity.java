@@ -4,6 +4,7 @@ package com.example.testsystem;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testsystem.ui.CountPlan;
@@ -32,27 +34,33 @@ public class MainActivity extends AppCompatActivity {
     private List<CountPlan> countPlanList = new ArrayList<>();
     private TimeRecycleAdapter timeRecycleAdapter;
     private DrawerLayout mDrwaerlayout;
+    private Toolbar toolbar;
+    private RecyclerView recyclerView;
+    private NavigationView navView;
+    private FloatingActionButton fab;
+    private Button start_exam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        initView();
         setSupportActionBar(toolbar);
         countPlanList.add(countPlans[0]);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         TimeRecycleAdapter adapter = new TimeRecycleAdapter(countPlanList);
         recyclerView.setAdapter(adapter);
-        mDrwaerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         }
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setCheckedItem(R.id.nav_call);
+        ClickEvent();
+    }
+
+    public void ClickEvent() {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -61,16 +69,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "cliked", Toast.LENGTH_SHORT).show();
 }
         });
-                }
+        start_exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ExaminnationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
-@Override
+    public void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrwaerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+        navView = (NavigationView) findViewById(R.id.nav_view);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        start_exam = (Button) findViewById(R.id.start_exam);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
