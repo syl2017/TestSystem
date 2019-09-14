@@ -23,12 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExaminnationActivity"
-            android:configChanges="keyboardHidden|navigation|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-
-        </activity>
+        <activity android:name=".ViewPageActivity"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.example.testsystem.ui.CountPlan;
+import com.example.testsystem.bean.CountPlan;
 
 import java.util.List;
 
