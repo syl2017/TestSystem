@@ -15,7 +15,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".Splash"
+        <activity android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewPageActivity"></activity>
+        <activity android:name=".LoginActivity"  />
+        <activity android:name=".SignupActivity" />
     </application>
 
 </manifest>
