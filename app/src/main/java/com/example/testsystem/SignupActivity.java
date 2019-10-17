@@ -14,7 +14,10 @@ import android.widget.Toast;
 
 import com.example.testsystem.bean.UserBean;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author syl
@@ -30,9 +33,10 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordText;
     private Button signupButton;
     private TextView loginLink;
-
-
-
+    private String name;
+    private String email;
+    private String password;
+    private boolean flag = false;
 
 
     @Override
@@ -78,9 +82,9 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        final String name = nameText.getText().toString();
-        final String email = emailText.getText().toString();
-        final String password = passwordText.getText().toString();
+        name = nameText.getText().toString();
+        email = emailText.getText().toString();
+        password = passwordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
@@ -89,17 +93,32 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        Calendar c = Calendar.getInstance();
-                        UserBean userBean = new UserBean();
-                        userBean.setUserName(name);
-                        userBean.setUserEmail(email);
-                        userBean.setUserPassword(password);
-                        userBean.setUserSignTime( c.get(Calendar.YEAR)+"/"+ c.get(Calendar.MONTH)+"/"+ c.get(Calendar.DATE));
-                        userBean.setUserTpye("学生");
-                        userBean.save();
-//                        userBean.setUserSignTime();
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
+                        if (userBeanList != null) {
+                            for (UserBean bean : userBeanList) {
+                                Log.d("Sign.Activity", bean.getUserEmail());
+
+                                if (bean.getUserEmail().equals(email) ) {
+//
+                                   flag=true;
+                                    break;
+                                }
+                            }
+                            Log.d("Sign", flag+"");
+
+                        }
+                        if (flag == true) {
+                            onSignupFailed();
+                        } else {
+
+                            onSignupSuccess();
+                        }
+
+
+
+//
+
+
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -107,6 +126,14 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void onSignupSuccess() {
+        Calendar c = Calendar.getInstance();
+        UserBean userBean = new UserBean();
+        userBean.setUserName(name);
+        userBean.setUserEmail(email);
+        userBean.setUserPassword(password);
+        userBean.setUserSignTime(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DATE));
+        userBean.setUserTpye("学生");
+        userBean.save();
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
