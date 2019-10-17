@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+
 /**
  * @author syl
  * @time 2019/10/16 22:25
@@ -35,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        LitePal.getDatabase();
         emailText = findViewById(R.id.input_email);
         passwordText = findViewById(R.id.input_password);
         loginButton = findViewById(R.id.btn_login);

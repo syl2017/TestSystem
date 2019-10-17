@@ -1,6 +1,7 @@
 package com.example.testsystem;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -10,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.testsystem.bean.UserBean;
+
+import java.util.Calendar;
 
 /**
  * @author syl
@@ -73,9 +78,9 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = nameText.getText().toString();
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
+        final String name = nameText.getText().toString();
+        final String email = emailText.getText().toString();
+        final String password = passwordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
@@ -84,6 +89,15 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
+                        Calendar c = Calendar.getInstance();
+                        UserBean userBean = new UserBean();
+                        userBean.setUserName(name);
+                        userBean.setUserEmail(email);
+                        userBean.setUserPassword(password);
+                        userBean.setUserSignTime( c.get(Calendar.YEAR)+"/"+ c.get(Calendar.MONTH)+"/"+ c.get(Calendar.DATE));
+                        userBean.setUserTpye("学生");
+                        userBean.save();
+//                        userBean.setUserSignTime();
                         onSignupSuccess();
                         // onSignupFailed();
                         progressDialog.dismiss();
@@ -96,6 +110,8 @@ public class SignupActivity extends AppCompatActivity {
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void onSignupFailed() {
