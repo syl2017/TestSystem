@@ -98,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                             for (UserBean bean : userBeanList) {
                                 Log.d("Sign.Activity", bean.getUserEmail());
 
-                                if (bean.getUserEmail().equals(email) ) {
+                                if ((bean.getUserEmail().equals(email))) {
 //
                                    flag=true;
                                     break;

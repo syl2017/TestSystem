@@ -12,7 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testsystem.bean.UserBean;
+
 import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 /**
  * @author syl
@@ -28,9 +33,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordText;
     private Button loginButton;
     private TextView signupLink;
-
-
-
+    private boolean flag=false;
+    private String email;
+    private String password;
 
 
     @Override
@@ -77,8 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
+        email = emailText.getText().toString();
+        password = passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
@@ -86,8 +91,29 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
+//                        onLoginSuccess();
 //                         onLoginFailed();
+                        List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
+                        if (userBeanList != null) {
+                            for (UserBean bean : userBeanList) {
+                                Log.d("Sign.Activity", bean.getUserEmail());
+
+                                if (bean.getUserEmail().equals(email)&&bean.getUserPassword().equals(password) ) {
+//
+                                    flag=true;
+                                    break;
+                                }
+                            }
+                            Log.d("Sign", flag+"");
+
+                        }
+                        if (flag == true) {
+
+                            onLoginSuccess();
+                        } else {
+                            onLoginFailed();
+
+                        }
                         progressDialog.dismiss();
                     }
                 }, 3000);
