@@ -86,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
         email = emailText.getText().toString();
         password = passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -121,7 +121,7 @@ public class SignupActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 1000);
     }
 
 
@@ -154,22 +154,22 @@ public class SignupActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
-            nameText.setError("at least 3 characters");
+        if (name.isEmpty() || name.length() < 2) {
+            nameText.setError("至少三位字符!");
             valid = false;
         } else {
             nameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+            emailText.setError("请确认为有效的邮箱地址!");
             valid = false;
         } else {
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("注意,在4到10位字符之间!");
             valid = false;
         } else {
             passwordText.setError(null);

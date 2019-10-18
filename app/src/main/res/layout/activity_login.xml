@@ -46,6 +46,12 @@
                 android:inputType="textPassword"
                 android:hint="密码/Password"/>
         </android.support.design.widget.TextInputLayout>
+        <CheckBox
+            android:id="@+id/remeber_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记住邮箱"></CheckBox>
+
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"

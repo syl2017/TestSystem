@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private boolean flag=false;
     private String email;
     private String password;
+    private CheckBox remeberEmail;
 
-
+    // TODO: 2019/10/18 SharePreference 的实现
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.input_password);
         loginButton = findViewById(R.id.btn_login);
         signupLink = findViewById(R.id.link_signup);
+        remeberEmail = (CheckBox) findViewById(R.id.remeber_email);
+        remeberEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 2019/10/18 CheckBox的监听内容
+            }
+        });
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -78,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.Theme_AppCompat_Dialog);
+        // TODO: 2019/10/18 更改progressDialog的样式
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -85,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         email = emailText.getText().toString();
         password = passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -116,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 1000);
     }
 
 
@@ -125,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
-                // TODO: Implement successful signup logic here
+
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
