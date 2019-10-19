@@ -2,7 +2,9 @@ package com.example.testsystem;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
@@ -34,10 +36,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordText;
     private Button loginButton;
     private TextView signupLink;
-    private boolean flag=false;
+    private boolean flag = false;
     private String email;
     private String password;
-    private CheckBox remeberEmail;
+    private CheckBox remeberCheckBox;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences pref;
+
+
 
     // TODO: 2019/10/18 SharePreference 的实现
     @Override
@@ -49,17 +55,23 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.input_password);
         loginButton = findViewById(R.id.btn_login);
         signupLink = findViewById(R.id.link_signup);
-        remeberEmail = (CheckBox) findViewById(R.id.remeber_email);
-        remeberEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 2019/10/18 CheckBox的监听内容
-            }
-        });
+        remeberCheckBox = findViewById(R.id.remeberCheckBox);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = pref.getBoolean("remember_password", false);
+        if (isRemember) {
+            String sharePreEmail = pref.getString("email", "");
+            String sharePrePassword = pref.getString("password", "");
+            emailText.setText(sharePreEmail);
+            passwordText.setText(sharePrePassword);
+            remeberCheckBox.setChecked(true);
+        }
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
                 login();
             }
         });
@@ -76,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
-        Log.d(TAG, "Login");
+        Log.d(TAG, "登录");
 
         if (!validate()) {
             onLoginFailed();
@@ -87,34 +99,33 @@ public class LoginActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.Theme_AppCompat_Dialog);
-        // TODO: 2019/10/18 更改progressDialog的样式
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+        progressDialog.setCancelable(false);
+                            progressDialog.setIndeterminate(true);
+                            progressDialog.setMessage("加载中");
+                            progressDialog.show();
 
-        email = emailText.getText().toString();
-        password = passwordText.getText().toString();
+                            email = emailText.getText().toString();
+                            password = passwordText.getText().toString();
 
 
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
+                            new android.os.Handler().postDelayed(
+                                    new Runnable() {
+                                        public void run() {
+                                            // On complete call either onLoginSuccess or onLoginFailed
 //                        onLoginSuccess();
 //                         onLoginFailed();
-                        List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
-                        if (userBeanList != null) {
-                            for (UserBean bean : userBeanList) {
-                                Log.d("Sign.Activity", bean.getUserEmail());
+                                            List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
+                                            if (userBeanList != null) {
+                                                for (UserBean bean : userBeanList) {
+                                                    Log.d("Sign.Activity", bean.getUserEmail());
 
-                                if (bean.getUserEmail().equals(email)&&bean.getUserPassword().equals(password) ) {
+                                                    if (bean.getUserEmail().equals(email) && bean.getUserPassword().equals(password)) {
 //
-                                    flag=true;
-                                    break;
-                                }
-                            }
-                            Log.d("Sign", flag+"");
+                                                        flag = true;
+                                                        break;
+                                                    }
+                                                }
+                                                Log.d("Sign", flag + "");
 
                         }
                         if (flag == true) {
@@ -149,6 +160,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+
+        editor = pref.edit();
+        if (remeberCheckBox.isChecked()) {
+
+            editor.putBoolean("remember_password", true);
+            editor.putString("email", email);
+            editor.putString("password", password);
+        } else {
+            editor.clear();
+        }
+        editor.apply();
         loginButton.setEnabled(true);
         finish();
         Intent intent = new Intent(this, MainActivity.class);
@@ -157,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "账号或者密码错误,登录失败", Toast.LENGTH_LONG).show();
 
         loginButton.setEnabled(true);
     }
@@ -169,14 +191,14 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+            emailText.setError("确认有效的邮箱格式");
             valid = false;
         } else {
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("请输入4个到10个之之间的字符");
             valid = false;
         } else {
             passwordText.setError(null);

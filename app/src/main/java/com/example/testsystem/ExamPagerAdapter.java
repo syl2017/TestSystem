@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class ExamPagerAdapter extends PagerAdapter {
 
-    private  Context mContext;
-    private  List<String> mData;
+    private Context mContext;
+    private List<String> mData;
     private TextView testQuestion;
 
     public ExamPagerAdapter(Context context, List<String> list) {
@@ -35,8 +35,8 @@ public class ExamPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = View.inflate(mContext, R.layout.examing_viewpager_item, null);
         testQuestion = (TextView) view.findViewById(R.id.activity_prepare_test_question);
-    testQuestion.setText(mData.get(position));
-    container.addView(view);
+        testQuestion.setText(mData.get(position));
+        container.addView(view);
         return view;
 
 
@@ -45,11 +45,11 @@ public class ExamPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        super.destroyItem(container, position, object);
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-        return view==o;
+        return view == o;
     }
 }

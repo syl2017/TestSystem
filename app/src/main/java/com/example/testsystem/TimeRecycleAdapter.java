@@ -18,6 +18,7 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
     private Context mContext;
     private List<CountPlan> mPlan;
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

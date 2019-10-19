@@ -1,6 +1,7 @@
 package com.example.testsystem;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private CountPlan[] countPlans = {
-            new CountPlan("考研", "2019年12月12日", "109")
+            new CountPlan("考研", "2019年12月12日", "109"),new CountPlan("软件考试","2019年11月12日","25")
     };
     private List<CountPlan> countPlanList = new ArrayList<>();
     private TimeRecycleAdapter timeRecycleAdapter;
@@ -45,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         setSupportActionBar(toolbar);
-        countPlanList.add(countPlans[0]);
+        for (int i = 0; i < countPlans.length; i++) {
+
+            countPlanList.add(countPlans[i]);
+        }
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         TimeRecycleAdapter adapter = new TimeRecycleAdapter(countPlanList);
@@ -67,10 +73,28 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_person:
                     case R.id.nav_grade:
                     case R.id.nav_graph:
+                        break;
                     case R.id.nav_sign_out: {
-                        finish();
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setTitle("退出账号？");
+                        dialog.setMessage("是否登出该账号");
+
+                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //空
+                            }
+                        });
+                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.show();
+
                         break;
                     }
                 }
