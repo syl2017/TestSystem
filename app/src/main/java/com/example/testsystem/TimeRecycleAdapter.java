@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.example.testsystem.bean.CountPlan;
+import com.example.testsystem.bean.Bean_CardView;
 
 import java.util.List;
 
 public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.ViewHolder> {
     private Context mContext;
-    private List<CountPlan> mPlan;
+    private List<Bean_CardView> mPlan;
 
 
     @NonNull
@@ -33,10 +33,10 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        CountPlan countPlan = mPlan.get(i);
-        viewHolder.thing_name.setText(countPlan.getThingContent());
-        viewHolder.thing_nextRemindTime.setText(countPlan.getRemindTime());
-        viewHolder.count_time.setText(countPlan.getCountTime());
+        Bean_CardView beanCardView = mPlan.get(i);
+        viewHolder.thing_name.setText(beanCardView.getThingContent());
+        viewHolder.thing_nextRemindTime.setText(beanCardView.getRemindTime());
+        viewHolder.count_time.setText(beanCardView.getCountTime());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
 
     }
 
-    public TimeRecycleAdapter(List<CountPlan> mPlan) {
+    public TimeRecycleAdapter(List<Bean_CardView> mPlan) {
         this.mPlan= mPlan;
     }
 }

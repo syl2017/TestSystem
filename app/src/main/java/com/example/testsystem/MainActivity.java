@@ -1,6 +1,7 @@
 package com.example.testsystem;
 
 
+import android.app.Person;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -16,23 +16,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.testsystem.bean.CountPlan;
+import com.example.testsystem.bean.Bean_CardView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private CountPlan[] countPlans = {
-            new CountPlan("考研", "2019年12月12日", "109"),new CountPlan("软件考试","2019年11月12日","25")
+    private Bean_CardView[] beanCardViews = {
+            new Bean_CardView("考研", "2019年12月12日", "109"),new Bean_CardView("软件考试","2019年11月12日","25")
     };
-    private List<CountPlan> countPlanList = new ArrayList<>();
+    private List<Bean_CardView> beanCardViewList = new ArrayList<>();
     private TimeRecycleAdapter timeRecycleAdapter;
     private DrawerLayout mDrwaerlayout;
     private Toolbar toolbar;
@@ -47,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         setSupportActionBar(toolbar);
-        for (int i = 0; i < countPlans.length; i++) {
+        for (int i = 0; i < beanCardViews.length; i++) {
 
-            countPlanList.add(countPlans[i]);
+            beanCardViewList.add(beanCardViews[i]);
         }
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
-        TimeRecycleAdapter adapter = new TimeRecycleAdapter(countPlanList);
+        TimeRecycleAdapter adapter = new TimeRecycleAdapter(beanCardViewList);
         recyclerView.setAdapter(adapter);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -71,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_person:
+                        Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
+                        startActivity(intent);
+                        break;
                     case R.id.nav_grade:
+                        break;
                     case R.id.nav_graph:
                         break;
                     case R.id.nav_sign_out: {
