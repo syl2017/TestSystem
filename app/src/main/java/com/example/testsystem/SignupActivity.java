@@ -2,6 +2,7 @@ package com.example.testsystem;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -37,7 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     private String email;
     private String password;
     private boolean flag = false;
-
+    private SharedPreferences.Editor userDataRecord;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,6 @@ public class SignupActivity extends AppCompatActivity {
         password = passwordText.getText().toString();
 
 
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -100,11 +100,11 @@ public class SignupActivity extends AppCompatActivity {
 
                                 if ((bean.getUserEmail().equals(email))) {
 //
-                                   flag=true;
+                                    flag = true;
                                     break;
                                 }
                             }
-                            Log.d("Sign", flag+"");
+                            Log.d("Sign", flag + "");
 
                         }
                         if (flag == true) {
@@ -113,7 +113,6 @@ public class SignupActivity extends AppCompatActivity {
 
                             onSignupSuccess();
                         }
-
 
 
 //
@@ -134,6 +133,12 @@ public class SignupActivity extends AppCompatActivity {
         userBean.setUserSignTime(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DATE));
         userBean.setUserTpye("学生");
         userBean.save();
+        userDataRecord = getSharedPreferences("UserDataRecord", MODE_PRIVATE).edit();
+        userDataRecord.putString("username", name);
+        userDataRecord.putString("password", password);
+        userDataRecord.putString("email", email);
+        userDataRecord.apply();
+        // TODO: 2019/10/20 在sharepreference留下信息
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();

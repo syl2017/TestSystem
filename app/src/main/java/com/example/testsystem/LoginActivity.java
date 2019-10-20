@@ -42,14 +42,15 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox remeberCheckBox;
     private SharedPreferences.Editor editor;
     private SharedPreferences pref;
-
-
+    private SharedPreferences.Editor userDataRecord;
+    private String name;
 
     // TODO: 2019/10/18 SharePreference 的实现
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // TODO: 2019/10/20 进去的时候销毁SharePrefence内容
         LitePal.getDatabase();
         emailText = findViewById(R.id.input_email);
         passwordText = findViewById(R.id.input_password);
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         signupLink = findViewById(R.id.link_signup);
         remeberCheckBox = findViewById(R.id.remeberCheckBox);
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+
         boolean isRemember = pref.getBoolean("remember_password", false);
         if (isRemember) {
             String sharePreEmail = pref.getString("email", "");
@@ -100,32 +102,32 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.Theme_AppCompat_Dialog);
         progressDialog.setCancelable(false);
-                            progressDialog.setIndeterminate(true);
-                            progressDialog.setMessage("加载中");
-                            progressDialog.show();
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("加载中");
+        progressDialog.show();
 
-                            email = emailText.getText().toString();
-                            password = passwordText.getText().toString();
+        email = emailText.getText().toString();
+        password = passwordText.getText().toString();
 
 
-                            new android.os.Handler().postDelayed(
-                                    new Runnable() {
-                                        public void run() {
-                                            // On complete call either onLoginSuccess or onLoginFailed
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onLoginSuccess or onLoginFailed
 //                        onLoginSuccess();
 //                         onLoginFailed();
-                                            List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
-                                            if (userBeanList != null) {
-                                                for (UserBean bean : userBeanList) {
-                                                    Log.d("Sign.Activity", bean.getUserEmail());
+                        List<UserBean> userBeanList = DataSupport.findAll(UserBean.class);
+                        if (userBeanList != null) {
+                            for (UserBean bean : userBeanList) {
+                                Log.d("Sign.Activity", bean.getUserEmail());
 
-                                                    if (bean.getUserEmail().equals(email) && bean.getUserPassword().equals(password)) {
-//
-                                                        flag = true;
-                                                        break;
-                                                    }
-                                                }
-                                                Log.d("Sign", flag + "");
+                                if (bean.getUserEmail().equals(email) && bean.getUserPassword().equals(password)) {
+                                    name = bean.getUserName();
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            Log.d("Sign", flag + "");
 
                         }
                         if (flag == true) {
@@ -171,6 +173,14 @@ public class LoginActivity extends AppCompatActivity {
             editor.clear();
         }
         editor.apply();
+        userDataRecord = getSharedPreferences("UserDataRecord", MODE_PRIVATE).edit();
+        userDataRecord.putString("username", name);
+        userDataRecord.putString("password", password);
+        userDataRecord.putString("email", email);
+        userDataRecord.apply();
+
+        // TODO: 2019/10/20 在sharepreference留下信息
+
         loginButton.setEnabled(true);
         finish();
         Intent intent = new Intent(this, MainActivity.class);

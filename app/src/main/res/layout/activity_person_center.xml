@@ -6,15 +6,15 @@
     android:layout_height="wrap_content">
 
 
-        <include
-            android:id="@+id/title"
-            layout="@layout/activity_title"></include>
+    <include
+        android:id="@+id/activity_title_include"
+        layout="@layout/activity_title"></include>
 
     <RelativeLayout
         android:id="@+id/li_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/activity_title_include"
         android:orientation="vertical">
 
         <ImageView

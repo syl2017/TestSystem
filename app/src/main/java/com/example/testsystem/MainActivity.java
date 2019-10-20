@@ -1,9 +1,9 @@
 package com.example.testsystem;
 
 
-import android.app.Person;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -20,31 +20,42 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.testsystem.bean.Bean_CardView;
-
 import java.util.ArrayList;
 import java.util.List;
 
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     private Bean_CardView[] beanCardViews = {
-            new Bean_CardView("考研", "2019年12月12日", "109"),new Bean_CardView("软件考试","2019年11月12日","25")
+            new Bean_CardView("考研", "2019年12月12日", "109"), new Bean_CardView("软件考试", "2019年11月12日", "25")
     };
     private List<Bean_CardView> beanCardViewList = new ArrayList<>();
-    private TimeRecycleAdapter timeRecycleAdapter;
     private DrawerLayout mDrwaerlayout;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private NavigationView navView;
     private FloatingActionButton fab;
     private Button start_exam;
+    private CircleImageView iconName;
+    private TextView navHeadMail;
+    private TextView navUserName;
+    private SharedPreferences userDataRecord;
+    private View headerView;
+    private TextView head_mail;
+    private TextView head_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        headerView = navView.inflateHeaderView(R.layout.nav_header);
+        head_mail = (TextView) headerView.findViewById(R.id.nav_head_mail);
+        head_username = (TextView) headerView.findViewById(R.id.nav_head_username);
         setSupportActionBar(toolbar);
         for (int i = 0; i < beanCardViews.length; i++) {
 
@@ -58,9 +69,13 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         }
-        navView.setCheckedItem(R.id.nav_person);
+        navView.setCheckedItem(R.id.nav_start_exam);
+        userDataRecord = getSharedPreferences("UserDataRecord", MODE_PRIVATE);
+//
+        head_mail.setText(userDataRecord.getString("email",""));
+        head_username.setText(userDataRecord.getString("username",""));
         ClickEvent();
     }
 
@@ -69,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+                    case R.id.nav_start_exam:
+                        break;
                     case R.id.nav_person:
                         Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
                         startActivity(intent);
@@ -91,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                         dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences.Editor userDataRecord = getSharedPreferences("UserDataRecord", MODE_PRIVATE).edit();
+                                userDataRecord.clear();
+                                userDataRecord.apply();
                                 finish();
                                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent);
@@ -122,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrwaerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-        navView = (NavigationView) findViewById(R.id.nav_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        start_exam = (Button) findViewById(R.id.start_exam);
+        toolbar = findViewById(R.id.toolbar);
+        mDrwaerlayout = findViewById(R.id.drawer_layout);
+        recyclerView = findViewById(R.id.recycle_view);
+        navView = findViewById(R.id.nav_view);
+        fab = findViewById(R.id.fab);
+        start_exam = findViewById(R.id.start_exam);
     }
 
     @Override
@@ -148,4 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 }
