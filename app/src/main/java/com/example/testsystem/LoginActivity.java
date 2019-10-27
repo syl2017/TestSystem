@@ -45,12 +45,12 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor userDataRecord;
     private String name;
 
-    // TODO: 2019/10/18 SharePreference 的实现
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // TODO: 2019/10/20 进去的时候销毁SharePrefence内容
+
         LitePal.getDatabase();
         emailText = findViewById(R.id.input_email);
         passwordText = findViewById(R.id.input_password);
@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
         userDataRecord.putString("email", email);
         userDataRecord.apply();
 
-        // TODO: 2019/10/20 在sharepreference留下信息
+
 
         loginButton.setEnabled(true);
         finish();

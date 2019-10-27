@@ -138,7 +138,7 @@ public class SignupActivity extends AppCompatActivity {
         userDataRecord.putString("password", password);
         userDataRecord.putString("email", email);
         userDataRecord.apply();
-        // TODO: 2019/10/20 在sharepreference留下信息
+
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
