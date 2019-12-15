@@ -13,30 +13,43 @@
 
         >
 
+        <Button
+            android:id="@+id/start_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:text="开始考试"></Button>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+
             android:layout_margin="16dp"
             android:src="@drawable/ic_plus" />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="考试记录"
+       android:layout_above="@id/recycle_view"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black_text"
+        ></TextView>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
-
-        <Button
-            android:id="@+id/start_exam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/recycle_view"
-            android:layout_centerHorizontal="true"
-            android:text="开始考试"></Button>
+          android:layout_alignParentBottom="true"
+           android:layout_marginBottom="300dp"
+           ></android.support.v7.widget.RecyclerView>
 
 
         <android.support.v7.widget.Toolbar
