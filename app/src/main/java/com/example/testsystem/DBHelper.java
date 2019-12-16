@@ -37,6 +37,7 @@ public class DBHelper {
         initFile();
         db = SQLiteDatabase.openDatabase(MyFinally.FILE_PATH,
                 null, SQLiteDatabase.OPEN_READWRITE);
+
         DataSupport.saveAll(getQuestion());//把查到的数据保存到LitePal中，方便使用查询
 
     }
@@ -59,6 +60,7 @@ public class DBHelper {
                 pdBean.setLabel(cursor.getString(cursor.getColumnIndex("label")));//题目内容
                 pdBean.setQuestion(cursor.getString(cursor.getColumnIndex("question")));//题目内容
                 pdBean.setMedia_content(cursor.getBlob(cursor.getColumnIndex("media_content")));//题目内容
+
                 pdBean.setAnswer(cursor.getString(cursor.getColumnIndex("answer")));
                 pdBean.setOption_a(cursor.getString(cursor.getColumnIndex("option_a")));//B答案
                 pdBean.setOption_b(cursor.getString(cursor.getColumnIndex("option_b")));//正确答案
@@ -74,13 +76,17 @@ public class DBHelper {
 
     private void initFile() {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+
             File dir = new File(MyFinally.FILE_PAPER_PATH);
             if (!dir.exists()) {
                 dir.mkdir();
+
             }
             try {
+
                 InputStream is = context.getAssets().open(DB_NAME);
                 OutputStream os = new FileOutputStream(DB_PATH + DB_NAME);
+
                 byte[] buffer = new byte[1024];
                 int length;
                 while ((length = is.read(buffer)) > 0) {

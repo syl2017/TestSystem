@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.testsystem.bean.ExamBean;
+import com.example.testsystem.bean.QuestionBean;
 
 import org.litepal.crud.DataSupport;
 
@@ -31,7 +31,7 @@ public class ViewPageActivity extends AppCompatActivity {
         setContentView(R.layout.viewpager);
 
         dbHelper =new DBHelper(this);
-        ExamBean first = DataSupport.findFirst(ExamBean.class);
+        QuestionBean first = DataSupport.findFirst(QuestionBean.class);
         Log.d(TAG, "onCreate: "+first);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         ArrayList<String> list = new ArrayList<>();
