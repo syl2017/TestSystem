@@ -124,9 +124,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
-                android:padding="10dip" >
+                android:padding="10dip">
 
                 <TextView
                     android:id="@+id/activity_prepare_test_no"
@@ -134,8 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dip"
                     android:textColor="@color/practice_test_no_text"
-                    android:textSize="16sp"
-                    />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/activity_prepare_test_question"
@@ -296,47 +295,15 @@
                         />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/activity_prepare_test_layout_e"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:background="@drawable/answer_choose_bg"
-                    android:padding="8dip" >
-
-                    <ImageView
-                        android:id="@+id/vote_submit_select_image_e"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_practice_test_normal" />
-
-                    <TextView
-                        android:id="@+id/vote_submit_select_text_e"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dip"
-                        android:text="您给出的回答选项？"
-                        android:textSize="16sp"
-                        android:textColor="@color/practice_test_result_text" />
-                    <ImageView
-                        android:id="@+id/vote_submit_select_image_e_"
-                        android:layout_width="150dip"
-                        android:layout_height="75dip"
-                        android:src="@drawable/ic_practice_test_normal"
-                        android:visibility="gone"
-                        android:layout_marginLeft="8dip"
-                        android:scaleType="fitXY"
-                        />
-                </LinearLayout>
 
 
-            </LinearLayout>
 
-            <!-- 错题分析 -->
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/activity_prepare_test_wrongLayout"
+        <!-- 错题分析 -->
+
+        <LinearLayout
+            android:id="@+id/activity_prepare_test_wrongLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
