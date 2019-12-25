@@ -8,13 +8,7 @@ import java.io.File;
  * Created by syl on 2017/12/21.
  */
 
-/**
- * 定义一些常量
- * 一些表名和字段名
- * 不可修改字段名，否则会得不到数据
- * 在res目录下面有一个raw文件夹，raw里面有一个数据表
- * 如果要android studio查看此表，就去下载一个插件 database
- */
+
 
 public class MyFinally {
     public static final String TABLE_NAME = "t_question";//表名
@@ -32,4 +26,6 @@ public class MyFinally {
     //  文件的详细地址，找到此文件
 //    FILE_PAPER_PATH 是第31行的地址，拼起来就是详细的文件地址和文件名
     public static final String FILE_PATH = FILE_PAPER_PATH + File.separator + "kaoshi.db";
+    public static final String isCorrect = "1";
+    public static final String isError = "0";
 }
