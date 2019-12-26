@@ -22,7 +22,7 @@ import java.util.List;
  * @time 2019/9/14 16:09
  * @detail
  */
-public class ViewPageActivity extends AppCompatActivity {
+public class ViewPageActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private static final String TAG = "TAG";
 
@@ -37,6 +37,8 @@ public class ViewPageActivity extends AppCompatActivity {
     private View test_totalLayout;
     private View test_errorLayout;
     private String username;
+    private boolean flag  ;
+    private ExamPagerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,9 +61,11 @@ public class ViewPageActivity extends AppCompatActivity {
 //            list.add("第一题" + i);
 //        }
         viewpagerList = new ArrayList<>();
-        init();
 
-    }
+        init();
+        mViewPager.setOnPageChangeListener(this);
+
+}
 
     public void setCurrentView(int index) {
         mViewPager.setCurrentItem(index);
@@ -69,10 +73,48 @@ public class ViewPageActivity extends AppCompatActivity {
 
     private void init() {
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mViewPager.setAdapter(new ExamPagerAdapter(this, all, username));
+        adapter = new ExamPagerAdapter(this, all, username);
+        mViewPager.setAdapter(adapter);
 
 
     }
 
 
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+        switch (i) {
+
+            case ViewPager.SCROLL_STATE_DRAGGING:
+
+                flag = false;
+                break;
+
+            case ViewPager.SCROLL_STATE_SETTLING:
+                flag = true;
+                break;
+            case ViewPager.SCROLL_STATE_IDLE:
+                if (mViewPager.getCurrentItem() == mViewPager.getAdapter()
+                        .getCount() - 1 && !flag) {
+                    Log.e("onPagerScrollState", "" + adapter.getCount() + adapter.errortopicNum);
+
+
+                    Toast.makeText(ViewPageActivity.this, "已经是最后一页",
+                            Toast.LENGTH_LONG).show();
+                }
+                flag = true;
+                break;
+        }
+
+
+    }
 }
