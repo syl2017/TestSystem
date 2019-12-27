@@ -47,19 +47,13 @@ public class ViewPageActivity extends AppCompatActivity implements ViewPager.OnP
         username = getSharedPreferences("UserDataRecord", MODE_PRIVATE).getString("username", "");
 
 
-//
-        Log.e("count", DataSupport.count(QuestionBean.class) + "");
+
         if (DataSupport.count(QuestionBean.class) == 0) {
             dbHelper = new DBHelper(this);
         }
-        Log.e("count", DataSupport.count(QuestionBean.class) + "");
+
         all = DataSupport.findAll(QuestionBean.class);
-//        QuestionBean first = DataSupport.findFirst(QuestionBean.class);
-//        Log.d(TAG, "onCreate: " + first);
-//        list = new ArrayList<>();
-//        for (int i = 0; i < 3; i++) {
-//            list.add("第一题" + i);
-//        }
+
         viewpagerList = new ArrayList<>();
 
         init();

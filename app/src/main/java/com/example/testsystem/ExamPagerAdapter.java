@@ -2,6 +2,7 @@ package com.example.testsystem;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -37,8 +38,9 @@ public class ExamPagerAdapter extends PagerAdapter {
     private ErrorQuestionInfo errorQuestionInfo;
     private String username;//用户名
     private ViewHolder holder;
-    private List<ErrorQuestionInfo> ErrorList;
-    private int question_id;
+
+
+    private int count = 1;
 
 
     public ExamPagerAdapter(ViewPageActivity context, List<?> list, String username) {
@@ -60,12 +62,11 @@ public class ExamPagerAdapter extends PagerAdapter {
         InitView(view);  //绑定视图
         LoadData(position);//对数据数据加载
         ListenerMethod(position);//视图事件监听
-//            int count = DataSupport.where("username = ?", username).count(ErrorQuestionInfo.class);
-//            Log.e("ErrorTime", count + "");
+
         //是否最后一页，若是，则提交结果，判断是否有未答题
         if (position == getCount() - 1) {
             holder.nextText.setText("提交");
-//            holder.nextImage.setImageResource(R.drawable.vote_submit_finish);
+
         }
         container.addView(view);
         return view;
@@ -77,34 +78,38 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.layoutA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CheckOptionAndSave(position, "1");//通过点击选项，判断是否正确，将结果存入数据库
-//                Log.e("A_positon",position+"");
-//                IsLastPage(position);
+
 
             }
         });
         holder.layoutB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 CheckOptionAndSave(position, "2");
-//                Log.e("B_positon",position+"");
-//                IsLastPage(position);
+
+
             }
         });
         holder.layoutC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 CheckOptionAndSave(position, "3");
-//                Log.e("C_positon",position+"");
-//                IsLastPage(position);
+
             }
         });
         holder.layoutD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 CheckOptionAndSave(position, "4");
-//                Log.e("D_positon",position+"");
-//                IsLastPage(position);
+
             }
         });
         holder.previousBtn.setOnClickListener(new LinearOnClickListener(position - 1, false, position, holder));
@@ -120,7 +125,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.text_c.setText(((QuestionBean) all.get(position)).getOption_c());
         holder.text_d.setText(((QuestionBean) all.get(position)).getOption_d());
         holder.totalText.setText(position + 1 + "/" + getCount());
-        question_id = ((QuestionBean) all.get(position)).getQuestion_id();
+
     }
 
     private void InitView(View view) {
@@ -139,38 +144,47 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.layoutB = (LinearLayout) view.findViewById(R.id.activity_prepare_test_layout_b);
         holder.layoutC = (LinearLayout) view.findViewById(R.id.activity_prepare_test_layout_c);
         holder.layoutD = (LinearLayout) view.findViewById(R.id.activity_prepare_test_layout_d);
+        holder.ivA = (ImageView) view.findViewById(R.id.vote_submit_select_image_a);
+        holder.ivB = (ImageView) view.findViewById(R.id.vote_submit_select_image_b);
+        holder.ivC = (ImageView) view.findViewById(R.id.vote_submit_select_image_c);
+        holder.ivD = (ImageView) view.findViewById(R.id.vote_submit_select_image_d);
     }
 
     private void CheckOptionAndSave(int position, String checkNumber) {
         errorQuestionInfo = new ErrorQuestionInfo();
+        List<ErrorQuestionInfo> errorlist = DataSupport.findAll(ErrorQuestionInfo.class);
+
 //        Log.e("quetion_id",question_id+"");
 //        ErrorList = DataSupport.where("questionid = ?", question_id + "").find(ErrorQuestionInfo.class);
 //        Log.e("ErrorList",ErrorList.toString());
-        if (((QuestionBean) all.get(position)).getAnswer().contains(checkNumber)) {
+        if (((QuestionBean) this.all.get(position)).getAnswer().contains(checkNumber)) {
 
             mContext.setCurrentView(position + 1);
             isCorrect = MyFinally.isCorrect;
-        }
-//        else if (!ErrorList.isEmpty()) {
-//            isCorrect = MyFinally.isError;
-//            errortopicNum += 1;
-//            errorQuestionInfo.setCountError("" + 2);
-//            mContext.setCurrentView(position + 1);
-//            errorQuestionInfo.save();
-//        }
-        else {
+        } else if (DataSupport.where("username = ? and questionid = ?", username, ((QuestionBean) this.all.get(position)).getQuestion_id() + "").count(ErrorQuestionInfo.class) > 0) {
+
+//            Log.e("ErrorTime", count + "");
+            isCorrect = MyFinally.isError;
+            errortopicNum += 1;
+            errorQuestionInfo.setCountError("" +2);
+            mContext.setCurrentView(position + 1);
+            errorQuestionInfo.updateAll("username = ? and questionid = ?", username, ((QuestionBean) this.all.get(position)).getQuestion_id() + "");
+        } else {
+            Log.e("username= ", username);
+            Log.e("question_id", ((QuestionBean) this.all.get(position)).getQuestion_id() + "");
+            Log.e("countData", DataSupport.where("username = ? and questionid = ?", username, ((QuestionBean) this.all.get(position)).getQuestion_id() + "").count(ErrorQuestionInfo.class) + "");
             isCorrect = MyFinally.isError;
             errortopicNum += 1;
             mContext.setCurrentView(position + 1);
             Log.e(TAG, "CheckOptionAndSave: " + username);
             errorQuestionInfo.setUserName(username);
-            errorQuestionInfo.setQuestionName(((QuestionBean) all.get(position)).getQuestion());
-            errorQuestionInfo.setOptionA(((QuestionBean) all.get(position)).getOption_a());
-            errorQuestionInfo.setOptionB(((QuestionBean) all.get(position)).getOption_b());
-            errorQuestionInfo.setOptionC(((QuestionBean) all.get(position)).getOption_c());
-            errorQuestionInfo.setOptionD(((QuestionBean) all.get(position)).getOption_d());
-            errorQuestionInfo.setQuestionAnswer((((QuestionBean) all.get(position)).getAnswer()));
-            errorQuestionInfo.setQuestionId(((QuestionBean) all.get(position)).getQuestion_id());
+            errorQuestionInfo.setQuestionName(((QuestionBean) this.all.get(position)).getQuestion());
+            errorQuestionInfo.setOptionA(((QuestionBean) this.all.get(position)).getOption_a());
+            errorQuestionInfo.setOptionB(((QuestionBean) this.all.get(position)).getOption_b());
+            errorQuestionInfo.setOptionC(((QuestionBean) this.all.get(position)).getOption_c());
+            errorQuestionInfo.setOptionD(((QuestionBean) this.all.get(position)).getOption_d());
+            errorQuestionInfo.setQuestionAnswer((((QuestionBean) this.all.get(position)).getAnswer()));
+            errorQuestionInfo.setQuestionId(((QuestionBean) this.all.get(position)).getQuestion_id());
 
             errorQuestionInfo.setCountError("" + 1);
 
@@ -244,6 +258,21 @@ public class ExamPagerAdapter extends PagerAdapter {
         @Override
         public void onClick(View view) {
             mContext.setCurrentView(mPosition);
+            if (mPosition == getCount()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setCancelable(false);
+                builder.setMessage("总共题目为 " + getCount() + "\n正确为 " + (getCount() - errortopicNum) + "\n错误为 " + errortopicNum);
+
+                builder.setPositiveButton("好", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mContext.finish();
+                    }
+                });
+                builder.show();
+
+
+            }
         }
     }
 }

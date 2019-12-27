@@ -14,13 +14,30 @@
         >
 
         <Button
-            android:id="@+id/start_exam"
-            android:layout_width="wrap_content"
+        android:id="@+id/start_exam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:text="开始考试"></Button>
+        <Button
+            android:id="@+id/my_fault"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@+id/start_exam"
             android:layout_centerHorizontal="true"
-            android:text="开始考试"></Button>
+            android:text="我的错题"></Button>
+        <Button
+            android:id="@+id/my_sorce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/my_fault"
+            android:layout_centerHorizontal="true"
+            android:text="我的成绩"></Button>
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -33,22 +50,39 @@
             android:src="@drawable/ic_plus" />
 
     <TextView
+        android:layout_below="@+id/my_sorce"
+        android:id="@+id/text_Record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="考试记录"
        android:layout_above="@id/recycle_view"
-        android:layout_marginBottom="20dp"
+
         android:layout_marginLeft="15dp"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/black_text"
         ></TextView>
+        <TextView
+            android:layout_marginTop="15dp"
+        android:layout_below="@id/my_sorce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(最近三次)"
+        android:layout_toRightOf="@id/text_Record"
+        android:layout_above="@id/recycle_view"
+
+
+        android:textSize="15dp"
+
+            android:textColor="@color/black_text"
+            ></TextView>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
-           android:layout_marginBottom="300dp"
+           android:layout_marginBottom="350dp"
            ></android.support.v7.widget.RecyclerView>
 
 

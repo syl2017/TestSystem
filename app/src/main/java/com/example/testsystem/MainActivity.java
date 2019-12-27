@@ -50,12 +50,15 @@ public class MainActivity extends AppCompatActivity {
     private View headerView;
     private TextView head_mail;
     private TextView head_username;
+    private Button myfault;
+    private Button mysorce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
 //        安卓动态申请权限  因为在高版本的安卓手机上跑不申请会闪退  记住同时在Manifest里配置权限
         //检查权限
         if(ActivityCompat.checkSelfPermission(MainActivity.this,
@@ -163,6 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        myfault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void initView() {
@@ -172,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         fab = findViewById(R.id.fab);
         start_exam = findViewById(R.id.start_exam);
+        myfault = (Button) findViewById(R.id.my_fault);
+        mysorce = (Button) findViewById(R.id.my_sorce);
+
     }
 
     @Override
