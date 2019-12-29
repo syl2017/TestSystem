@@ -3,11 +3,11 @@ package com.example.testsystem;
 import android.os.Environment;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * Created by syl on 2017/12/21.
  */
-
 
 
 public class MyFinally {
@@ -28,4 +28,10 @@ public class MyFinally {
     public static final String FILE_PATH = FILE_PAPER_PATH + File.separator + "kaoshi.db";
     public static final String isCorrect = "1";
     public static final String isError = "0";
+    public static final int UPDATE_TEXT = 1;
+
+    public static String SetTime() {
+        Calendar c = Calendar.getInstance();
+        return new String(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DATE));
+    }
 }

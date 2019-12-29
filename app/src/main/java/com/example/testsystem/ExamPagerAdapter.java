@@ -2,24 +2,27 @@ package com.example.testsystem;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.Image;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.testsystem.bean.ErrorQuestionInfo;
+import com.example.testsystem.bean.GradeBean;
 import com.example.testsystem.bean.QuestionBean;
+import com.example.testsystem.view.ErrorActivity;
+import com.example.testsystem.view.MainActivity;
+import com.example.testsystem.view.ViewPageActivity;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
@@ -38,7 +41,7 @@ public class ExamPagerAdapter extends PagerAdapter {
     private ErrorQuestionInfo errorQuestionInfo;
     private String username;//用户名
     private ViewHolder holder;
-
+    private Handler handler;
 
     private int count = 1;
 
@@ -51,7 +54,7 @@ public class ExamPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return 2;
     }
 
     @NonNull
@@ -114,7 +117,13 @@ public class ExamPagerAdapter extends PagerAdapter {
         });
         holder.previousBtn.setOnClickListener(new LinearOnClickListener(position - 1, false, position, holder));
         holder.nextBtn.setOnClickListener(new LinearOnClickListener(position + 1, true, position, holder));
-
+        holder.wrongLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ErrorActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
 
@@ -148,6 +157,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.ivB = (ImageView) view.findViewById(R.id.vote_submit_select_image_b);
         holder.ivC = (ImageView) view.findViewById(R.id.vote_submit_select_image_c);
         holder.ivD = (ImageView) view.findViewById(R.id.vote_submit_select_image_d);
+        holder.wrongLayout = (LinearLayout) view.findViewById(R.id.activity_prepare_test_errorLayout);
     }
 
     private void CheckOptionAndSave(int position, String checkNumber) {
@@ -166,7 +176,7 @@ public class ExamPagerAdapter extends PagerAdapter {
 //            Log.e("ErrorTime", count + "");
             isCorrect = MyFinally.isError;
             errortopicNum += 1;
-            errorQuestionInfo.setCountError("" +2);
+            errorQuestionInfo.setCountError("" + 2);
             mContext.setCurrentView(position + 1);
             errorQuestionInfo.updateAll("username = ? and questionid = ?", username, ((QuestionBean) this.all.get(position)).getQuestion_id() + "");
         } else {
@@ -266,6 +276,14 @@ public class ExamPagerAdapter extends PagerAdapter {
                 builder.setPositiveButton("好", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        GradeBean bean = new GradeBean();
+                        bean.setAnswerTime(MyFinally.SetTime());
+                        bean.setCountError(errortopicNum);
+                        bean.setGrade((getCount() - errortopicNum) * 5);
+                        bean.setUsername(username);
+                        bean.save();
+
+
                         mContext.finish();
                     }
                 });
@@ -275,4 +293,6 @@ public class ExamPagerAdapter extends PagerAdapter {
             }
         }
     }
+
+
 }

@@ -36,32 +36,32 @@
         <!---->
     </RelativeLayout>
 
-    <com.example.testsystem.ItemPersonCenterActivity
+    <com.example.testsystem.view.ItemPersonCenterActivity
         android:id="@+id/person_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/li_layout"
         app:left_icon="@drawable/username"
         app:left_text="用户名"
-        app:right_text="syl"></com.example.testsystem.ItemPersonCenterActivity>
+        app:right_text="syl"></com.example.testsystem.view.ItemPersonCenterActivity>
 
-    <com.example.testsystem.ItemPersonCenterActivity
+    <com.example.testsystem.view.ItemPersonCenterActivity
         android:id="@+id/person_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/person_name"
         app:left_icon="@drawable/email"
         app:left_text="邮箱"
-        app:right_text="123@163.com"></com.example.testsystem.ItemPersonCenterActivity>
+        app:right_text="123@163.com"></com.example.testsystem.view.ItemPersonCenterActivity>
 
-    <com.example.testsystem.ItemPersonCenterActivity
+    <com.example.testsystem.view.ItemPersonCenterActivity
         android:id="@+id/person_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/person_email"
         app:left_icon="@drawable/password"
         app:left_text="密码"
-        app:right_text="abc123"></com.example.testsystem.ItemPersonCenterActivity>
+        app:right_text="abc123"></com.example.testsystem.view.ItemPersonCenterActivity>
 
 
 </RelativeLayout>

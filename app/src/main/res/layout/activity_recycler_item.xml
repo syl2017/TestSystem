@@ -77,7 +77,7 @@
                     android:id="@+id/count_type_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="剩余"
+                    android:text="分数"
                     android:textColor="@android:color/black"
                     android:textSize="12.0dip" />
 
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/count_time"
                         android:layout_toRightOf="@id/count_time"
-                        android:text="天"
+                        android:text="分"
                         android:textColor="@android:color/black"
                         android:textSize="12.0dip" />
                 </RelativeLayout>
