@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.testsystem.R;
-import com.example.testsystem.TimeRecycleAdapter;
+import com.example.testsystem.control.TimeRecycleAdapter;
 import com.example.testsystem.bean.GradeBean;
 
 import org.litepal.crud.DataSupport;

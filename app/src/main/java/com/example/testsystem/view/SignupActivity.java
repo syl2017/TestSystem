@@ -39,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     private String password;
     private boolean flag = false;
     private SharedPreferences.Editor userDataRecord;
+    private Button teacherButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.input_password);
         signupButton = findViewById(R.id.btn_signup);
         loginLink = findViewById(R.id.link_login);
+
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,7 @@ public class SignupActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     public void signup() {

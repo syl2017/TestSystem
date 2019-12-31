@@ -4,10 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
-import android.util.Log;
 
-import com.example.testsystem.MyFinally;
-import com.example.testsystem.bean.QuestionBean;
+import com.example.testsystem.model.MyFinally;
 
 import org.litepal.crud.DataSupport;
 
@@ -17,10 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 /**
  * @author syl

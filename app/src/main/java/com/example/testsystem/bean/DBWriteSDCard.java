@@ -5,7 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 
-import com.example.testsystem.MyFinally;
+import com.example.testsystem.model.MyFinally;
 import com.example.testsystem.R;
 
 import java.io.File;

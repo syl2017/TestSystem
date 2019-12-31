@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testsystem.bean.DBHelper;
-import com.example.testsystem.ExamPagerAdapter;
+import com.example.testsystem.control.ExamPagerAdapter;
 import com.example.testsystem.R;
 import com.example.testsystem.bean.QuestionBean;
 

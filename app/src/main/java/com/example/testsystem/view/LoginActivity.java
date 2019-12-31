@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences pref;
     private SharedPreferences.Editor userDataRecord;
     private String name;
+    private Button teahch_login_button;
 
 
     @Override
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         signupLink = findViewById(R.id.link_signup);
         remeberCheckBox = findViewById(R.id.remeberCheckBox);
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+        teahch_login_button = findViewById(R.id.btn_teacher_login);
 
         boolean isRemember = pref.getBoolean("remember_password", false);
         if (isRemember) {
@@ -85,6 +87,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
+        teahch_login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TeacherActivity.class);
+                startActivity(intent);
             }
         });
     }
