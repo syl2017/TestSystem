@@ -66,4 +66,8 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
     public TimeRecycleAdapter(List<GradeBean> mPlan) {
         this.mPlan= mPlan;
     }
+
+    public void setList(List<GradeBean> mPlan) {
+        this.mPlan=mPlan;
+    }
 }

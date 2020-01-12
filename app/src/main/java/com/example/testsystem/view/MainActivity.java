@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity  {
     private   TextView text_empty;
     private  TimeRecycleAdapter adapter;
     private List<ButtonItem> button_list=new ArrayList<>();
+    private boolean isPause=false;
 
 
     @Override
@@ -166,18 +167,25 @@ public class MainActivity extends AppCompatActivity  {
 
     public void ActivityEvent() {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            private Intent intent;
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_start_exam:
                         break;
                     case R.id.nav_person:
-                        Intent intent = new Intent(MainActivity.this, PersonCenterActivity.class);
+                        intent = new Intent(MainActivity.this, PersonCenterActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_grade:
+                        intent = new Intent(MainActivity.this, ErrorActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_graph:
+                        intent = new Intent(MainActivity.this, ScoreActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.nav_sign_out: {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -275,6 +283,22 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true; //记录页面已经被暂停
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isPause){ //判断是否暂停
+            isPause = false;
+            beans =DataSupport.findAll(GradeBean.class);;
+            adapter.setList(beans); //需要adapter重新设置list的数据
+            adapter.notifyDataSetChanged();//刷新
+        }
+
+    }
 
 }
