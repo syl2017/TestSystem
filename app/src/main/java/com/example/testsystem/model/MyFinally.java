@@ -32,6 +32,6 @@ public class MyFinally {
 
     public static String SetTime() {
         Calendar c = Calendar.getInstance();
-        return new String(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DATE));
+        return new String(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH)+1 + "/" + c.get(Calendar.DATE));
     }
 }

@@ -17,21 +17,27 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testsystem.R;
+import com.example.testsystem.bean.ButtonItem;
+import com.example.testsystem.control.ButtonRecycleAdapter;
 import com.example.testsystem.control.TimeRecycleAdapter;
 import com.example.testsystem.bean.GradeBean;
+import com.example.testsystem.model.MyApplication;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity  {
     private List<GradeBean> beans;
     private   TextView text_empty;
     private  TimeRecycleAdapter adapter;
+    private List<ButtonItem> button_list=new ArrayList<>();
 
 
     @Override
@@ -71,6 +78,7 @@ public class MainActivity extends AppCompatActivity  {
         LoadView();//视图加载
         LoadData();//视图数据加载
 
+
         beans = DataSupport.findAll(GradeBean.class);
 
         if (!beans.isEmpty()) {
@@ -81,6 +89,23 @@ public class MainActivity extends AppCompatActivity  {
 
         GridViewManger();//GridView的视图管理
         ActivityEvent();//本页面的所有的点击事件
+
+        RecyclerView button_reclerview = (RecyclerView) findViewById(R.id.button_recyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        button_reclerview.setLayoutManager(layoutManager);
+
+        DataLoad();
+        ButtonRecycleAdapter adapter = new ButtonRecycleAdapter(MyApplication.getContext(),button_list);
+        button_reclerview.setAdapter(adapter);
+
+    }
+
+    private void DataLoad() {
+      button_list.add(new ButtonItem("开始考试",R.drawable.strat_exam));
+      button_list.add(new ButtonItem("我的错题", R.drawable.my_fault));
+      button_list.add(new ButtonItem("我的成绩", R.drawable.my_sorce));
+
     }
 
     private void navViewManager() {
@@ -192,27 +217,27 @@ public class MainActivity extends AppCompatActivity  {
                 Toast.makeText(MainActivity.this, "cliked", Toast.LENGTH_SHORT).show();
             }
         });
-        start_exam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        myfault.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
-                startActivity(intent);
-            }
-        });
-        mysorce.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
-                startActivity(intent);
-            }
-        });
+//        start_exam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, ViewPageActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        myfault.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        mysorce.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
