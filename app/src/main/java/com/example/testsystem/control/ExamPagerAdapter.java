@@ -3,6 +3,7 @@ package com.example.testsystem.control;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -65,7 +66,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         InitView(view);  //绑定视图
         LoadData(position);//对数据数据加载
         ListenerMethod(position);//视图事件监听
-
+        Log.e("position", position+"");
         //是否最后一页，若是，则提交结果，判断是否有未答题
         if (position == getCount() - 1) {
             holder.nextText.setText("提交");
@@ -81,7 +82,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.layoutA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
                 CheckOptionAndSave(position, "1");//通过点击选项，判断是否正确，将结果存入数据库
 
 
@@ -91,7 +92,7 @@ public class ExamPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
 
-
+                holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
                 CheckOptionAndSave(position, "2");
 
 
@@ -100,7 +101,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.layoutC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 
                 CheckOptionAndSave(position, "3");
 
@@ -110,7 +111,7 @@ public class ExamPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
 
-
+                holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
                 CheckOptionAndSave(position, "4");
 
             }
@@ -158,6 +159,7 @@ public class ExamPagerAdapter extends PagerAdapter {
         holder.ivC = (ImageView) view.findViewById(R.id.vote_submit_select_image_c);
         holder.ivD = (ImageView) view.findViewById(R.id.vote_submit_select_image_d);
         holder.wrongLayout = (LinearLayout) view.findViewById(R.id.activity_prepare_test_errorLayout);
+
     }
 
     private void CheckOptionAndSave(int position, String checkNumber) {
