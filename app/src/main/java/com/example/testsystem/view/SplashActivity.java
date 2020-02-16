@@ -13,7 +13,7 @@ import static java.lang.Thread.sleep;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
 
-    private Thread thread=new Thread(this);
+    private Thread thread=new Thread(this); //新建线程
     private TextView runOut;
 
 
@@ -23,9 +23,9 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        thread.start();
+        thread.start(); //线程启动
         runOut = findViewById(R.id.run_out);
-        runOut.setOnClickListener(new View.OnClickListener() {
+        runOut.setOnClickListener(new View.OnClickListener() {//
             @Override
             public void onClick(View view) {
 //                    thread.stop();
@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     public void run() {
         try {//使用线程进行休眠操作
             sleep(2000);//休眠5秒
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);//跳转到登录界面
             startActivity(intent);
             finish();
         } catch (InterruptedException e) {
