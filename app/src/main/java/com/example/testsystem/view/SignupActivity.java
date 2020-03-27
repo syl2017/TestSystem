@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.example.testsystem.R;
 import com.example.testsystem.bean.UserBean;
+import com.example.testsystem.model.MyFinally;
 
 import org.litepal.crud.DataSupport;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -133,7 +135,9 @@ public class SignupActivity extends AppCompatActivity {
         userBean.setUserName(name);
         userBean.setUserEmail(email);
         userBean.setUserPassword(password);
-        userBean.setUserSignTime(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH)+1 + "/" + c.get(Calendar.DATE));
+
+
+        userBean.setUserSignTime(MyFinally.SetTime());
         userBean.setUserTpye("学生");
         userBean.save();
         userDataRecord = getSharedPreferences("UserDataRecord", MODE_PRIVATE).edit();

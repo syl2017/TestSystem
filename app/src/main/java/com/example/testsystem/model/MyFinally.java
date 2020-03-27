@@ -3,6 +3,7 @@ package com.example.testsystem.model;
 import android.os.Environment;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -32,6 +33,8 @@ public class MyFinally {
 
     public static String SetTime() {
         Calendar c = Calendar.getInstance();
-        return new String(c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH)+1 + "/" + c.get(Calendar.DATE));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+        return new String(formatter.format(c.getTime()));
     }
 }

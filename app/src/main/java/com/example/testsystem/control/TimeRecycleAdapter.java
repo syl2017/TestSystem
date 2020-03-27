@@ -26,7 +26,7 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
         if (mContext == null) {
             mContext = viewGroup.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.activity_recycler_item,viewGroup,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.activity_recycler_item, viewGroup, false);
 
 
         return new ViewHolder(view);
@@ -37,7 +37,7 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
         GradeBean beanCardView = mPlan.get(i);
         viewHolder.thing_name.setText(beanCardView.getUsername());
         viewHolder.thing_nextRemindTime.setText(beanCardView.getAnswerTime());
-        viewHolder.count_time.setText(beanCardView.getGrade()+"");
+        viewHolder.count_time.setText(beanCardView.getGrade() + "");
     }
 
     @Override
@@ -53,9 +53,8 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            cardView= (CardView) itemView.findViewById(R.id.);
-            thing_name=itemView.findViewById(R.id.thing_name);
-            thing_nextRemindTime=itemView.findViewById(R.id.thing_nextRemindTime);
+            thing_name = itemView.findViewById(R.id.thing_name);
+            thing_nextRemindTime = itemView.findViewById(R.id.thing_nextRemindTime);
             count_time = itemView.findViewById(R.id.count_time);
 
         }
@@ -64,10 +63,10 @@ public class TimeRecycleAdapter extends RecyclerView.Adapter<TimeRecycleAdapter.
     }
 
     public TimeRecycleAdapter(List<GradeBean> mPlan) {
-        this.mPlan= mPlan;
+        this.mPlan = mPlan;
     }
 
     public void setList(List<GradeBean> mPlan) {
-        this.mPlan=mPlan;
+        this.mPlan = mPlan;
     }
 }
