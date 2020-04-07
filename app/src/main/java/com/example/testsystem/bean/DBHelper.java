@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.util.Log;
 
+import com.example.testsystem.R;
 import com.example.testsystem.model.MyFinally;
 
 import org.litepal.crud.DataSupport;
@@ -25,9 +27,10 @@ import java.util.List;
 public class DBHelper {
     Context context;
     private String DB_PATH = "kaoshi.db";
-
+    private static final String TAG = "DataBaseReady";
     private String DB_NAME = "/data/user/0/com.example.testsystem/databases/";
     private SQLiteDatabase db;
+
     public DBHelper(Context context) {
         this.context = context;
         initFile();
@@ -70,29 +73,46 @@ public class DBHelper {
 
     }
 
-    private void initFile() {
+    private void initFile() {// 把raw下的sq写进sd卡
+        // 如果你的储存卡存在并且可用
+        // 只有在SD卡状态为MEDIA_MOUNTED时/mnt/sdcard目录才是可读可写，并且可以创建目录及文件
+        // 判断sd卡是否挂载
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-
+            // 建立sd卡对象
             File dir = new File(MyFinally.FILE_PAPER_PATH);
+            //如果没有此文件夹就创建
             if (!dir.exists()) {
-                dir.mkdir();
+                //创建
+                dir.mkdirs();
 
+            } else {
+                Log.d(TAG, "sd已有");
             }
-            try {
-
-                InputStream is = context.getAssets().open(DB_NAME);
-                OutputStream os = new FileOutputStream(DB_PATH + DB_NAME);
-
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, length);
+            // 实例化文件名对象
+            File filePath = new File(MyFinally.FILE_PATH);// 建立sd卡下 的db文件
+            // 如果文件不存在
+            if (!filePath.exists()) {
+//                不存在就把raw目录下的kaoshi文件通过流读出来，读出来是为了等会好写进去
+                InputStream in = this.context.getResources().openRawResource(
+                        R.raw.kaoshi);
+//                对程序异常奔溃的捕捉 try catch
+                try {
+//                  FileOutputStream是文件输出流，是用于将数据写入File或 FileDescriptor的输出流
+//                  实例化文件输入流对象（文件名）
+                    FileOutputStream fileOutputStream = new FileOutputStream(MyFinally.FILE_PATH);// 得到输出流 文件夹下文件路径
+//                    定义了一个byte类型的数组，数组长度为8192
+                    byte[] buffer = new byte[8192];
+                    int t = 0;
+                    while ((t = in.read(buffer)) != -1) {// 半读边写
+                        fileOutputStream.write(buffer, 0, t);
+                    }
+//                    开了流就一定要记得关  因为会占用系统资源
+//                   文件读写完 关闭流
+                    in.close();
+                    fileOutputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                os.flush();
-                os.close();
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
         }
